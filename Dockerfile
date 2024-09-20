@@ -10,17 +10,11 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
-#RUN npm install mocha --save-dev
-
-
 # Copy the rest of the application code
 COPY . .
 
-# Expose the port the app runs on
+# Expose the port (if necessary for your app)
 EXPOSE 3000
 
-# Command to run the application
-CMD ["node", "app.js"]
-
-ENTRYPOINT ["npm"]
-CMD ["test"]
+# Default command to run tests
+CMD ["npm", "test"]
