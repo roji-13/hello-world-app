@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/app.test.js" // Update this line to run your tests
+    "test": "mocha test/app.test.js"  
   },
   "keywords": [],
   "author": "",
@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "chai": "^5.1.1",
-    "chai-http": "^4.3.0", // Added chai-http
+    "chai-http": "^4.3.0", 
     "mocha": "^10.7.3"
   }
 }
