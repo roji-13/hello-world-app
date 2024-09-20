@@ -9,6 +9,7 @@ COPY package*.json ./
 
 # Install dependencies
 RUN npm install
+RUN npm install -g npx
 
 #RUN npm install mocha --save-dev
 
@@ -23,4 +24,4 @@ EXPOSE 3000
 CMD ["node", "app.js"]
 
 ENTRYPOINT ["npm"]
-CMD ["test"]
+CMD ["start"]
