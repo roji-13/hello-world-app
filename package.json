@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "chai": "^5.1.1",
-    "chai-http": "^4.3.0", // Add this line
+    "chai-http": "^4.3.0",  
     "mocha": "^10.7.3"
   }
 }
