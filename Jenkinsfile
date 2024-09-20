@@ -12,29 +12,30 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Build Docker Image') {
             steps {
-                bat 'echo Installing dependencies...'
-                // Install dependencies with npm
-                bat 'npm install'
+                script {
+                    // Build the Docker image
+                    sh 'docker build -t hello-world-app .'
+                }
             }
         }
 
-        stage('Test') {
+        stage('Run Tests') {
             steps {
-                bat 'echo Running tests...'
-                // Run tests using Mocha
-                bat 'npx mocha test/app.test.js'
+                script {
+                    // Run the tests inside a Docker container
+                    sh 'docker run --rm hello-world-app npm test'
+                }
             }
         }
 
         stage('Deploy') {
             steps {
-                bat 'echo Deploying the application...'
-                // Add your deployment commands here. For example, if you have a script for deployment:
-                // bat 'deploy-script.bat'
-                // If you're deploying to a server, you might use something like:
-                // bat 'scp -r ./dist user@server:/path/to/deploy'
+                script {
+                    // Replace this with your deployment commands
+                    sh 'docker run -d -p 3000:3000 hello-world-app'
+                }
             }
         }
     }
@@ -42,7 +43,8 @@ pipeline {
     post {
         always {
             echo 'Cleaning up...'
-            // Add cleanup commands here if needed, such as deleting temporary files or logs
+            // Cleanup Docker images if needed
+            sh 'docker rmi hello-world-app || true'
         }
     }
 }
