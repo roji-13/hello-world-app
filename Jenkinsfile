@@ -14,28 +14,20 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                script {
-                    // Build the Docker image
-                    sh 'docker build -t hello-world-app .'
-                }
+                bat 'docker build -t hello-world-app .'
             }
         }
 
         stage('Run Tests') {
             steps {
-                script {
-                    // Run the tests inside a Docker container
-                    sh 'docker run --rm hello-world-app npm test'
-                }
+                bat 'docker run hello-world-app npm test'
             }
         }
 
         stage('Deploy') {
             steps {
-                script {
-                    // Replace this with your deployment commands
-                    sh 'docker run -d -p 3000:3000 hello-world-app'
-                }
+                bat 'echo Deploying the application...'
+                // Add your deployment commands here
             }
         }
     }
@@ -43,8 +35,7 @@ pipeline {
     post {
         always {
             echo 'Cleaning up...'
-            // Cleanup Docker images if needed
-            sh 'docker rmi hello-world-app || true'
+            // Add cleanup commands here if needed
         }
     }
 }
