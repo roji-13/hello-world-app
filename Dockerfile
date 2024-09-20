@@ -9,7 +9,6 @@ COPY package*.json ./
 
 # Install dependencies
 RUN npm install
-RUN npm install -g npx
 
 #RUN npm install mocha --save-dev
 
