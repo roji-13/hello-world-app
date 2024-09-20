@@ -20,9 +20,9 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
+       stage('Run Tests') {
             steps {
-            bat 'docker run --rm hello-world-app npm test'
+                bat 'docker run --rm hello-world-app npx mocha'
             }
         }
 
