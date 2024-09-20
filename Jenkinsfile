@@ -5,7 +5,6 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    // Ensure you have Git configured correctly
                     checkout([$class: 'GitSCM', 
                               branches: [[name: '*/master']], 
                               userRemoteConfigs: [[url: 'https://github.com/roji-13/hello-world-app.git', credentialsId: 'roji-13']]])
@@ -13,24 +12,29 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Install Dependencies') {
             steps {
-                bat 'echo Building the project...'
-                // Add your build commands here
+                bat 'echo Installing dependencies...'
+                // Install dependencies with npm
+                bat 'npm install'
             }
         }
 
         stage('Test') {
             steps {
                 bat 'echo Running tests...'
-                // Add your test commands here
+                // Run tests using Mocha
+                bat 'npx mocha test/app.test.js'
             }
         }
 
         stage('Deploy') {
             steps {
                 bat 'echo Deploying the application...'
-                // Add your deployment commands here
+                // Add your deployment commands here. For example, if you have a script for deployment:
+                // bat 'deploy-script.bat'
+                // If you're deploying to a server, you might use something like:
+                // bat 'scp -r ./dist user@server:/path/to/deploy'
             }
         }
     }
@@ -38,7 +42,7 @@ pipeline {
     post {
         always {
             echo 'Cleaning up...'
-            // Add cleanup commands here if needed
+            // Add cleanup commands here if needed, such as deleting temporary files or logs
         }
     }
 }
