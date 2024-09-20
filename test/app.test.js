@@ -11,6 +11,7 @@ describe('GET /', () => {
         chai.request(app)
             .get('/')
             .end((err, res) => {
+                if (err) return done(err); // Handle error if it occurs
                 expect(res).to.have.status(200);
                 expect(res.text).to.equal('Hello, World!');
                 done();
