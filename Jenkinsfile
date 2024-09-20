@@ -22,7 +22,7 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                bat 'docker run hello-world-app npm test'
+            bat 'docker run --rm hello-world-app npm test'
             }
         }
 
