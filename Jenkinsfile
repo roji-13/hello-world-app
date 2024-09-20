@@ -22,7 +22,7 @@ pipeline {
 
        stage('Run Tests') {
             steps {
-            bat 'docker run --rm hello-world-app ./node_modules/.bin/mocha'
+            bat 'docker run --rm hello-world-app npx mocha'
             }
         }
 
