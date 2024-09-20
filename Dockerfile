@@ -21,3 +21,6 @@ EXPOSE 3000
 
 # Command to run the application
 CMD ["node", "app.js"]
+
+ENTRYPOINT ["npm"]
+CMD ["test"]
