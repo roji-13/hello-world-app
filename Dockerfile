@@ -24,4 +24,4 @@ EXPOSE 3000
 CMD ["node", "app.js"]
 
 ENTRYPOINT ["npm"]
-CMD ["start"]
+CMD ["test"]
