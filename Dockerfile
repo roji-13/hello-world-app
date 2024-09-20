@@ -10,7 +10,7 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
-RUN npm install mocha --save-dev
+#RUN npm install mocha --save-dev
 
 
 # Copy the rest of the application code
