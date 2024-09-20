@@ -7,8 +7,8 @@ pipeline {
                 script {
                     // Ensure you have Git configured correctly
                     checkout([$class: 'GitSCM', 
-                              branches: [[name: '*/main']], 
-                              userRemoteConfigs: [[url: 'https://github.com/your-repo.git', credentialsId: 'your-credentials-id']]])
+                              branches: [[name: '*/master']], 
+                              userRemoteConfigs: [[url: 'https://github.com/roji-13/hello-world-app.git', credentialsId: 'roji-13']]])
                 }
             }
         }
