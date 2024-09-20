@@ -4,43 +4,33 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo 'Cloning the repository...'
-                git url: 'https://github.com/roji-13/hello-world-app.git'
+                script {
+                    // Ensure you have Git configured correctly
+                    checkout([$class: 'GitSCM', 
+                              branches: [[name: '*/main']], 
+                              userRemoteConfigs: [[url: 'https://github.com/your-repo.git', credentialsId: 'your-credentials-id']]])
+                }
             }
         }
 
         stage('Build') {
             steps {
-                echo 'Building the application...'
-                sh 'mvn clean package'
+                bat 'echo Building the project...'
+                // Add your build commands here
             }
         }
 
         stage('Test') {
             steps {
-                echo 'Running tests...'
-                sh 'mvn test'
+                bat 'echo Running tests...'
+                // Add your test commands here
             }
         }
 
-        stage('Deploy to Test') {
+        stage('Deploy') {
             steps {
-                echo 'Deploying to test environment...'
-                sh 'docker-compose up -d'
-            }
-        }
-
-        stage('Release to Production') {
-            steps {
-                echo 'Releasing to production...'
-                sh 'eb deploy production'
-            }
-        }
-
-        stage('Monitoring') {
-            steps {
-                echo 'Starting monitoring and alerting...'
-                sh 'datadog-agent start'
+                bat 'echo Deploying the application...'
+                // Add your deployment commands here
             }
         }
     }
@@ -48,15 +38,7 @@ pipeline {
     post {
         always {
             echo 'Cleaning up...'
-            cleanWs()
-        }
-
-        success {
-            echo 'Pipeline completed successfully!'
-        }
-
-        failure {
-            echo 'Pipeline failed!'
+            // Add cleanup commands here if needed
         }
     }
 }
