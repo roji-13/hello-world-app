@@ -1,23 +1,10 @@
-// test/app.test.js
-const chaiHttp = require('chai-http');
+const request = require('supertest'); // Use supertest with Jest
+const app = require('../app'); // Assuming your Express app is in app.js
 
-(async () => {
-    const chai = await import('chai');
-    const app = await import('../app.js'); // Ensure correct path with .js extension
-
-    chai.use(chaiHttp);
-    const { expect } = chai;
-
-    describe('GET /', () => {
-        it('should return Hello, World!', (done) => {
-            chai.request(app.default) // Use app.default to access the exported app
-                .get('/')
-                .end((err, res) => {
-                    if (err) return done(err);
-                    expect(res).to.have.status(200);
-                    expect(res.text).to.equal('Hello, World!');
-                    done();
-                });
-        });
-    });
-})();
+describe('GET /', () => {
+  it('should return Hello World', async () => {
+    const res = await request(app).get('/');
+    expect(res.statusCode).toBe(200);
+    expect(res.text).toBe('Hello World');
+  });
+});
