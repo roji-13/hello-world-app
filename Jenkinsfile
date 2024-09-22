@@ -27,26 +27,26 @@ pipeline {
         }
 
         stage('SonarQube Analysis') {
-            environment {
-                SONAR_HOST_URL = 'http://192.168.0.96:9000'
-                SONAR_LOGIN = 'squ_a806a140428be534a876e983d197a9fe8b36846d'
-            }
-            steps {
-                script {
-                    // Use Docker to run the SonarScanner with debug logging
-                    bat '''
-                    docker run --rm \
-                    -v "%cd%:/usr/src" \
-                    -e SONAR_HOST_URL=%SONAR_HOST_URL% \
-                    -e SONAR_LOGIN=%SONAR_LOGIN% \
-                    sonarsource/sonar-scanner-cli \
-                    -Dsonar.projectKey=hello-world-app \
-                    -Dsonar.sources=/usr/src/src \
-                    -X
-                    '''
-                }
-            }
+    environment {
+        SONAR_HOST_URL = 'http://192.168.0.96:9000'  // Ensure this is the correct IP
+        SONAR_LOGIN = 'squ_a806a140428be534a876e983d197a9fe8b36846d'
+    }
+    steps {
+        script {
+            bat '''
+            docker run --rm \
+            -v "%cd%:/usr/src" \
+            -e SONAR_HOST_URL=%SONAR_HOST_URL% \
+            -e SONAR_LOGIN=%SONAR_LOGIN% \
+            sonarsource/sonar-scanner-cli \
+            -Dsonar.projectKey=hello-world-app \
+            -Dsonar.sources=/usr/src/src \
+            -Dsonar.login=%SONAR_LOGIN%
+            '''
         }
+    }
+}
+
 
         stage('Deploy') {
             steps {
