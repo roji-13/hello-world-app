@@ -32,7 +32,7 @@ pipeline {
     SONAR_HOST_URL = 'http://192.168.0.96:9000'
     SONAR_LOGIN = 'squ_a806a140428be534a876e983d197a9fe8b36846d'
 
-
+        }
     }
     steps {
         script {
