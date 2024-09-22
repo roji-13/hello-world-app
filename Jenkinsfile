@@ -26,13 +26,15 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
-            steps {
-                bat 'echo Deploying the application...'
-                // Add your deployment commands here
+    stage('Deploy') {
+        steps {
+            script {
+                bat 'docker run -d -p 80:80 --name hello-world-app-container hello-world-app'
+                echo 'Application successfully deployed to Docker container!'
             }
         }
     }
+
 
     post {
         always {
