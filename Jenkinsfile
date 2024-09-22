@@ -26,14 +26,21 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
-            steps {
-                script {
-                    bat 'docker run -d -p 80:80 --name hello-world-app-container hello-world-app'
-                    echo 'Application successfully deployed to Docker container!'
-                }
-            }
+       stage('Deploy') {
+    steps {
+        script {
+            // Stop and remove the existing container if it exists
+            bat '''
+                docker stop hello-world-app-container || true
+                docker rm hello-world-app-container || true
+            '''
+            // Now run the new container
+            bat 'docker run -d -p 80:80 --name hello-world-app-container hello-world-app'
+            echo 'Application successfully deployed to Docker container!'
         }
+    }
+}
+
     }
 
     post {
