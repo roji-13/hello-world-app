@@ -34,14 +34,6 @@ pipeline {
                 }
             }
         }
-
-        stage('Code Quality Analysis') {
-            steps {
-                script {
-                    bat 'sonar-scanner -Dsonar.projectKey=hello-world-app -Dsonar.sources=./src -Dsonar.host.url=http://localhost:9000 -Dsonar.login=your_sonarqube_token'
-                }
-            }
-        }
     }
 
     post {
