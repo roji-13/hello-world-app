@@ -8,6 +8,11 @@ app.use(express.static('public'));
 // Middleware for parsing JSON
 app.use(express.json());
 
+// Root route
+app.get('/', (req, res) => {
+    res.send('Hello, World!');
+});
+
 // Profile route
 app.get('/profile', (req, res) => {
     res.send(`
