@@ -26,49 +26,42 @@ pipeline {
             }
         }
 
-    stage('SonarQube Analysis') {
-    environment {
-        environment {
-    SONAR_HOST_URL = 'http://192.168.0.96:9000'
-    SONAR_LOGIN = 'squ_a806a140428be534a876e983d197a9fe8b36846d'
-
+        stage('SonarQube Analysis') {
+            environment {
+                SONAR_HOST_URL = 'http://192.168.0.96:9000'
+                SONAR_LOGIN = 'squ_a806a140428be534a876e983d197a9fe8b36846d'
+            }
+            steps {
+                script {
+                    // Use Docker to run the SonarScanner with debug logging
+                    bat '''
+                    docker run --rm \
+                    -v "%cd%:/usr/src" \
+                    -e SONAR_HOST_URL=%SONAR_HOST_URL% \
+                    -e SONAR_LOGIN=%SONAR_LOGIN% \
+                    sonarsource/sonar-scanner-cli \
+                    -Dsonar.projectKey=hello-world-app \
+                    -Dsonar.sources=/usr/src/src \
+                    -X
+                    '''
+                }
+            }
         }
-    }
-    steps {
-        script {
-            // Use Docker to run the SonarScanner with debug logging
-            bat '''
-            docker run --rm \
-            -v "%cd%:/usr/src" \
-            -e SONAR_HOST_URL=%SONAR_HOST_URL% \
-            -e SONAR_LOGIN=%SONAR_LOGIN% \
-            sonarsource/sonar-scanner-cli \
-            -Dsonar.projectKey=hello-world-app \
-            -Dsonar.sources=/usr/src/src \
-            -X
-            '''
+
+        stage('Deploy') {
+            steps {
+                script {
+                    // Stop and remove the existing container if it exists
+                    bat '''
+                        docker stop hello-world-app-container || true
+                        docker rm hello-world-app-container || true
+                    '''
+                    // Now run the new container
+                    bat 'docker run -d -p 80:80 --name hello-world-app-container hello-world-app'
+                    echo 'Application successfully deployed to Docker container!'
+                }
+            }
         }
-    }
-}
-
-
-
-       stage('Deploy') {
-    steps {
-        script {
-            // Stop and remove the existing container if it exists
-            bat '''
-                docker stop hello-world-app-container || true
-                docker rm hello-world-app-container || true
-            '''
-            // Now run the new container
-            bat 'docker run -d -p 80:80 --name hello-world-app-container hello-world-app'
-            echo 'Application successfully deployed to Docker container!'
-        }
-    }
-}
-       
-
     }
 
     post {
