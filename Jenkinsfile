@@ -40,16 +40,15 @@ pipeline {
         }
     }
 }
-          stage('Code Quality Analysis') {
+        stage('Code Quality Analysis') {
     steps {
         script {
-            // Reference the SonarQube Scanner set in Global Tool Configuration
-            def sonarScannerHome = tool name: 'SonarQube Scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-            // Execute sonar-scanner from the configured tool
-            bat "${sonarScannerHome}/bin/sonar-scanner -Dsonar.projectKey=hello-world-app -Dsonar.sources=./src -Dsonar.host.url=http://localhost:9000 -Dsonar.login=your_sonarqube_token"
+            def scannerHome = tool name: 'SonarQube Scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+            bat "${scannerHome}/bin/sonar-scanner.bat -Dsonar.projectKey=hello-world-app -Dsonar.sources=./src -Dsonar.host.url=http://localhost:9000 -Dsonar.login=your_sonarqube_token"
         }
     }
 }
+
 
     }
 
