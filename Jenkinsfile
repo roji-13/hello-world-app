@@ -20,21 +20,21 @@ pipeline {
             }
         }
 
-       stage('Run Tests') {
+        stage('Run Tests') {
             steps {
                 bat 'docker run hello-world-app npm test'
             }
         }
 
-    stage('Deploy') {
-        steps {
-            script {
-                bat 'docker run -d -p 80:80 --name hello-world-app-container hello-world-app'
-                echo 'Application successfully deployed to Docker container!'
+        stage('Deploy') {
+            steps {
+                script {
+                    bat 'docker run -d -p 80:80 --name hello-world-app-container hello-world-app'
+                    echo 'Application successfully deployed to Docker container!'
+                }
             }
         }
     }
-
 
     post {
         always {
