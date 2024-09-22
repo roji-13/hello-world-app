@@ -29,7 +29,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    bat 'C:\\Users\\rojir\\Documents\\sonarqube-10.6.0.92116\\bin\\windows-x86-64\\sonar-scanner -Dsonar.projectKey=hello-world-app -Dsonar.sources=./src -Dsonar.host.url=http://localhost:9000 -Dsonar.login=squ_a806a140428be534a876e983d197a9fe8b36846d'
+            bat 'C:\\Users\\rojir\\Documents\\sonarqube-10.6.0.92116\\bin\\windows-x86-64\\sonar-scanner -Dsonar.projectKey=hello-world-app -Dsonar.sources=./src -Dsonar.host.url=http://localhost:9000 -Dsonar.login=squ_a806a140428be534a876e983d197a9fe8b36846d'
                 }
             }
         }
