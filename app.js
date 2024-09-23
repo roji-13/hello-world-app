@@ -10,7 +10,7 @@ app.use(express.json());
 
 // Root route
 app.get('/', (req, res) => {
-    res.send('Hello, World!');
+    res.send('Home Page!');
 });
 
 // Profile route
