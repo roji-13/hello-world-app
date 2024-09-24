@@ -28,7 +28,7 @@ pipeline {
 
         stage('SonarQube Analysis') {
             environment {
-                SONAR_HOST_URL = 'http://192.168.0.96:9000'  // Ensure this is the correct IP
+                SONAR_HOST_URL = 'http://192.168.0.96:9000'  
                 SONAR_LOGIN = 'squ_a806a140428be534a876e983d197a9fe8b36846d'
             }
             steps {
@@ -66,7 +66,6 @@ pipeline {
     post {
         always {
             echo 'Cleaning up...'
-            // Add cleanup commands here if needed
         }
     }
 }
